@@ -63,10 +63,13 @@ public final class ViewAnnotationManager {
     public var validatesViews = true
 
     /// The complete list of annotations associated with the receiver.
+        /// The complete list of annotations associated with the receiver.
+    @available(*, deprecated, renamed: "allAnnotations", message: "Please use allAnnotations instead, or directly access ViewAnnotation itself")
     public var annotations: [UIView: ViewAnnotationOptions] {
-        idsByView.compactMapValues { [mapboxMap] id in
+        let values = idsByView.compactMapValues { [mapboxMap] id in
             try? mapboxMap.options(forViewAnnotationWithId: id)
         }
+        return values
     }
 
     internal init(containerView: UIView, mapboxMap: MapboxMapProtocol) {
